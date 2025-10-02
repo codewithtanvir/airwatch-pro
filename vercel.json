@@ -15,19 +15,12 @@
       "config": {
         "runtime": "python3.9"
       }
-    },
-    {
-      "src": "api/air-quality.py",
-      "use": "@vercel/python",
-      "config": {
-        "runtime": "python3.9"
-      }
     }
   ],
   "rewrites": [
     {
-      "source": "/api/(.*)",
-      "destination": "/api/$1"
+      "source": "/api/health",
+      "destination": "/api/health"
     },
     {
       "source": "/(.*)",
