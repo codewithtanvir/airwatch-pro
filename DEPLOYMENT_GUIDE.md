@@ -23,8 +23,9 @@ Deploy your NASA hackathon project using:
 
 4. **Configure Service**:
    - **Service Name**: `airwatch-backend`
-   - **Root Directory**: Leave empty (Railway will auto-detect)
-   - Railway will automatically use the `Procfile` and `railway.json`
+   - **Root Directory**: Set to `backend` (IMPORTANT!)
+   - **Build Command**: `pip install -r requirements.txt`
+   - **Start Command**: `python -m uvicorn app.main:app --host 0.0.0.0 --port $PORT`
 
 5. **Environment Variables**: Add these in Railway dashboard:
    ```bash
