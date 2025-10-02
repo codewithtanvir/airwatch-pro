@@ -97,8 +97,9 @@ python start_server.py  # Starts on http://localhost:8000
 # Deploy to Vercel (Frontend)
 npx vercel deploy
 
-# Deploy to Railway/Heroku (Backend)
-git push railway main
+# Deploy to Vercel (Full-Stack)
+npm run build
+npx vercel --prod
 
 # Or use Kubernetes
 kubectl apply -f k8s/production-deployment.yaml
