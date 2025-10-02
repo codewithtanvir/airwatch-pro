@@ -1,2 +1,0 @@
-# Minimal dependencies for Vercel serverless functions
-# No FastAPI dependency to reduce bundle size
