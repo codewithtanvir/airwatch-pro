@@ -151,5 +151,10 @@ playwright/.cache/
 backend_backup/
 hackathon_docs/
 
+# Deployment files
+.vercel
+.railway
+*.log
+
 # Temporary and cache files
 node_modules
