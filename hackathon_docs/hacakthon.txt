@@ -1,0 +1,197 @@
+
+
+
+From EarthData to Action: Cloud Computing with Earth Observation Data for Predicting Cleaner, Safer Skies
+
+
+SUMMARY
+NASA’s Tropospheric Emissions: Monitoring of Pollution (TEMPO) mission is revolutionizing air quality monitoring across North America by enabling better forecasts and reducing pollutant exposure. Your challenge is to develop a web-based app that forecasts air quality by integrating real-time TEMPO data with ground-based air quality measurements and weather data, notifying users of poor air quality, and helping to improve public health decisions. Teams are encouraged to utilize new technologies that allow seamless scaling of computing from local devices to cloud systems, enhancing collaboration and streamlining work efficiency.
+BACKGROUND
+Video link: 
+Challenge: From EarthData to Action | NASA Space Apps Challenge
+
+According to the World Health Organization (WHO), outdoor air pollution contributes to millions of deaths every year (see Resources tab), making it one of the biggest global health risks. In addition, 99% of people worldwide breathe air that exceeds WHO pollution guidelines. Some communities may be more vulnerable to poor air quality because of factors including proximity to industrial sources of air pollution, higher rates of underlying health problems, poor nutrition, and stress.
+The causes of air pollution vary from human activities (vehicle emissions) to natural events (like wildfires and dust storms). Since air pollution is a global hazard, a combination of airborne-, ground-, and satellite-based tools is necessary to better understand the movement of pollutants and the impact of events leading to poor air quality. Integrating socioeconomic data with air quality data can provide a more accurate analysis of populations facing greater exposure and vulnerability from pollutants.
+
+NASA provides unrestricted access to satellite and ground station data that can be used to assess aspects of air quality (i.e., nitrogen dioxide, formaldehyde, PM2.5, etc.), as well as access to tools and applications for analyzing and working with this data. NASA also collaborates with federal entities and international space organizations to collect and distribute air quality data.
+Weather significantly affects air quality as wind disperses or concentrates pollutants, while temperature influences chemical reactions forming pollutants like ozone. Inversions trap pollutants near ground level, while rain removes particulates, and atmospheric stability controls pollutant mixing. Humidity affects particle behavior and seasonal patterns create predictable variations, with summer bringing higher ozone while winter increases particulates. Understanding these relationships is vital for environmental management and health protection.
+
+OBJECTIVES
+Your challenge is to build an app that forecasts air quality by integrating real-time TEMPO data with ground-based air quality measurements and weather data, and that helps people limit their exposure to unhealthy levels of air pollution by showing them local air quality predictions and sending timely alerts. Your tool could help improve public health and environmental awareness by using NASA's Earth information in a way that's easy to understand, freely available, and reliable!
+Think about how your app could bring together different types of information—from satellites in space, sensors on the ground, and weather data—including the new TEMPO satellite data and possibly measurements from networks like Pandora or OpenAQ (see Resources tab). The app could combine all this information to create useful local air quality forecasts with clear visualizations that may include landscape features of the area. Users could get alerts when air quality might affect their health. The app could work with different data sources and clearly show where the information comes from.
+What capabilities will you include in your app? There are so many possibilities! For example, your app could:
+Display and integrate data from diverse sources
+Near real-time TEMPO data (check and make sure you use the latest product!)
+Ground-based air quality measurements (e.g., Pandora, TolNet, OpenAQ—see Resources tab)
+Weather data
+Compare satellite data with ground station data for validation purposes in real time
+Generate forecasts of local air quality
+Visualize complex information clearly to users
+Alert users proactively about potential health risks related to air quality
+Provide historical trends of variables
+Whatever capabilities your app offers, don’t forget to incorporate user-centric design and preferences (e.g., for specific audiences or geographic regions). Get creative! What kind of novel visualizations will your app display? You could also include supplementary datasets (e.g., respiratory health data, etc.) that could increase the value of your app for additional communities or markets. And remember to cite the specific data and tools used in your app!
+
+POTENTIAL CONSIDERATIONS
+Your project could address target stakeholders affected by air quality concerns including (but not limited to):
+Health-Sensitive Groups:
+Vulnerable populations requiring targeted protection
+School administrators safeguarding student health
+Eldercare facility managers protecting senior residents
+Residents in industrial zones facing heightened exposure
+Policy Implementation Partners:
+Government officials and municipal leaders enacting clean air initiatives
+Transportation authorities (managing transit systems, ports, aviation, traffic flows)
+Parks departments, recreation coordinators, and athletic trainers/directors
+School district environmental health officers and athletic trainers/directors (making decisions about outdoor activities for student athletes)
+Tourism boards optimizing visitor experiences and regional appeal
+Emergency Response Networks:
+Wildfire management teams
+Disaster readiness organizations
+Meteorological service providers
+Crisis communication specialists
+Economic Stakeholders:
+Insurance risk assessors evaluating health and property implications
+Public Engagement:
+Citizen science coordinators mobilizing community-based data collection
+NASA DATA & RESOURCES
+World Health Organization (WHO) Air Pollution
+https://www.who.int/health-topics/air-pollution#tab=tab_1
+WHO website with information about global air pollution, its effects, and mitigation strategies.
+Background: 60 Second Science: Air Quality
+https://youtu.be/FsR2iylJlLE?si=CzRGgv-1VzA7JVkl
+This video details what air quality is and why it’s important to study it.
+Background: An Inside Look at How NASA Measures Air Pollution
+https://appliedsciences.nasa.gov/get-involved/training/english/arset-inside-look-how-nasa-measures-air-pollution
+This two-part webinar series is tailored to those interested in learning how to access and visualize NASA data related to global changes in air pollution.
+NASA Tropospheric Emissions: Monitoring of Pollution (TEMPO) Air QualityObservation Data
+https://www.earthdata.nasa.gov/data/instruments/tempo
+The TEMPO website provides data that helps researchers assess and characterize air quality and better understand interactions between humans and the environment. TEMPO data for consideration in this challenge are available for the following variables (Note: Near Real Time(NRT) data are indicated with *):
+*Nitrogen dioxide (NO2)
+*Formaldehyde (CH2O or HCHO)
+*Aerosol Index (AI)
+*Particulate matter (PM)
+Ozone (O3)
+SPoRt Viewer – Near Real-Time
+https://weather.ndc.nasa.gov/sport/viewer/?dataset=tempol2&product=tempo_no2&location=for
+The SPoRt (Short-term Prediction Research and Transition) Viewer is an online tool that provides near real-time visualizations of satellite data for weather and environmental monitoring.
+Atmospheric Science Data Center (ASDC) Resource Hub
+https://github.com/nasa/ASDC_Data_and_User_Services/tree/main
+A website created by NASA’s Atmospheric Science Data Center (ASDC), which serves as a comprehensive resource for end users seeking guidance and instructions. The site also provides tutorials for missions conducted by the Remote Sensing Information Gateway (RSIG) - a free software system from the U.S. Environmental Protection Agency for accessing and visualizing environmental data. (Note: use of RSIG requires downloading RSIG-py).
+NASA Precipitation - Observation Data: TRMM Multi-satellite Precipitation Analysis(TMPA)
+https://search.earthdata.nasa.gov/search?q=TMPA
+TMPA is an integrated product that offers rainfall estimates at 3-hour or 1-day intervals, or in near real-time (NRT) and accumulated rainfall at 3-hour and 1-day intervals.
+NASA Precipitation - Observation Data: Integrated Multi-satellite Retrievals for GPM (IMERG)
+https://search.earthdata.nasa.gov/search?q=IMERG
+IMERG is an integrated product that offers multiple options to accommodate different user requirements for latency and accuracy; e.g., Early, Late, and Final precipitation data on the half-hour or 1-day time interval (Early = 4 hours, e.g., for flash flood events; Late = 12 hours, e.g., for crop forecasting; and Final = 3 months, with the incorporation of rain gauge data, for research). IMERG in Earthdata Search enables users to download data straight from the IMERG Resources web portal, which provides a variety of visualizations, download options, and more.
+NASA Rainfall - Model Data: Daymet
+https://daymet.ornl.gov/getdata
+Daymet provides long-term, continuous, gridded estimates of daily weather and climatology variables by interpolating and extrapolating ground-based observations through statistical modeling techniques.
+Cloud- Observation Data
+https://satcorps.larc.nasa.gov/
+Imagery from Geostationary Operational Environmental Satellites (GOES) and Himiawari-8 can be interactively explored using the NASA Worldview satellite imagery exploration tool:
+GOES and Himawari Red Visible
+GOES and Himawari Clean Infrared
+NASA Relative Humidity - Observation Data: Atmospheric Infrared Sounder (AIRS)
+https://search.earthdata.nasa.gov/search/granules?p=C1701805625-GES_DISC&pg%5B0%5D%5Bv%5D=f&pg%5B0%5D%5Bgsk%5D=-start_date&q=relative%20humidity&fl=2%2B-%2BGeophys.%2BVariables%252C%2BSensor%2BCoordinates&lf=1%2Bto%2B3%2Bhours&csk=-score&tl=1388441027.485!5!!&fst0=Atmosphere&fpc0=Earth+Observation+Satellites&fpb0=Space-based+Platforms
+AIRS relative humidity data are collected daily at 1 degree, and the Level 3 data products are provided in either the descending (equatorial crossing north to south at 1:30 a.m. mean local time) or ascending (equatorial crossing south to north at 1:30 p.m. mean local time) orbit. Note that the data were acquired only until 2016.
+NASA Relative Humidity - Reanalysis Data: Modern-Era Retrospective analysis for Research and Applications, Version 2 (MERRA-2)
+https://search.earthdata.nasa.gov/search?q=merra-2&fs10=Surface%20Temperature&fsm0=Atmospheric%20Temperature&fs20=Air%20Temperature&fst0=Atmosphere
+There are several interval options available: 1-hour, 3-hour, and 6-hour. These options provide information on surface specific humidity, specific humidity at 2 m, and relative humidity.
+NASA Surface Air Temperature - Observation Data: Atmospheric Infrared Sounder (AIRS)
+https://go.nasa.gov/3vNB1WD
+The AIRS aboard NASA's Aqua satellite gathers infrared energy emitted from Earth's surface and atmosphere globally every day. AIRS data may be visualized in a range of time intervals: daily, 8-day, and monthly.
+NASA Surface Air Temperature - Model Data: Daymet
+https://daymet.ornl.gov/getdata
+Daymet provides long-term, continuous, gridded estimates of daily weather and climatology variables by interpolating and extrapolating ground-based observations using statistical modeling techniques.
+NASA Surface Air Temperature - Reanalysis Data: MERRA-2 Temperature
+https://search.earthdata.nasa.gov/search?q=merra-2&fs10=Surface%20Temperature&fsm0=Atmospheric%20Temperature&fs20=Air%20Temperature&fst0=Atmosphere
+MERRA-2 provides data beginning in 1980. Due to the amount of historical data available, MERRA-2 data can be used to look for trends and patterns, as well as anomalies.
+NOAA Wind - Observation Data: Cyclone Global Navigation Satellite System(CYGNSS)/Delay Doppler Mapping Instrument (DDMI) Wind Speed 25-km
+https://search.earthdata.nasa.gov/search/granules/collection-details?p=C2254232941-POCLOUD&pg%5B0%5D%5Bv%5D=f&pg%5B0%5D%5Bgsk%5D=-start_date&q=wind%20ddmi&fi=DDMI&fpj=CYGNSS&fl=2%2B-%2BGeophys.%2BVariables%252C%2BSensor%2BCoordinates&fs10=Surface+Winds&fsm0=Ocean+Winds&fst0=Oceans&fst1=Land+Surface&fpb0=Space-based+Platforms
+Provides the time-tagged and geolocated average wind speed (m/s) in 25x25 kilometer grid cells.
+NOAA Wind - Observation Data: Other CYGNSS/DDMI Wind Products
+https://search.earthdata.nasa.gov/search?p=C2254232941-POCLOUD&pg%5B0%5D%5Bv%5D=f&pg%5B0%5D%5Bgsk%5D=-start_date&q=wind%20ddmi&fi=DDMI&fpj=CYGNSS&fl=2%2B-%2BGeophys.%2BVariables%252C%2BSensor%2BCoordinates&fs10=Surface%20Winds&fsm0=Ocean%20Winds&fst0=Oceans&fst1=Land%20Surface&fpb0=Space-based%20Platforms
+Other CYGNSS/DDMI wind products in Earthdata Search.
+NASA Wind -Observation Data: Advanced Microwave Scanning Radiometer 2 (AMSR2)
+https://search.earthdata.nasa.gov/search/granules?p=C1841273046-LANCEAMSR2&pg%5b0%5d%5bv%5d=f&pg%5b0%5d%5bgsk%5d=-start_date&fi=AMSR2&tl=1672484219.217!4!!&fs10=Surface%20Winds&fsm0=Atmospheric%20Winds&fs20=Wind%20Direction&fst0=Atmosphere&fs21=Wind%20Speed&fs11=Surface%20Winds&fsm1=Atmospheric%20Winds&fst1=Atmosphere
+Near Real-time (NRT) wind direction, wind speed data are available in Earthdata Search from NASA’s Land, Atmosphere Near real-time Capability for Earth observation (LANCE) 75 to 140 minutes after a satellite observation.
+NASA Wind - Reanalysis Data: MERRA-2 Eastern and Northward Wind
+https://search.earthdata.nasa.gov/search?q=M2IMNPASM
+MERRA-2 provides data beginning in 1980. Due to the amount of historical data available, MERRA-2 data can be used to look for trends and patterns, as well as anomalies.
+NASA Planetary Boundary Layer (PBL) Height - Reanalysis Data: MERRA-2 PBL Monthly
+https://search.earthdata.nasa.gov/search?q=M2TMNXFLX
+and MERRA-2 BLW 1-Hourly
+The boundary layer top height is the pressure of the level with the largest gradient of a relative humidity (relative to the liquid phase of water) layer profile.
+Ground Station Networks Observation Data - The NASA Pandora Project
+https://pandora.gsfc.nasa.gov/
+The NASA Pandora Project is part of the Pandonia Global Network with 168 official sites. It uses spectroscopy to study ultraviolet (UV) and visible wavelengths of light to determine the composition of the atmosphere and its interactions with Earth’s environment. Locations provides station location information, Data Access enables users to download ground station data.
+Ground Station Networks Observation Data -NASA's Tropospheric Ozone Lidar Network (TOLNet)
+https://tolnet.larc.nasa.gov/
+This website features 12 sites (3 fixed and 9 transportable sites) and provides high spatio-temporal observations of tropospheric ozone to help us better understand physical processes driving the ozone budget in various meteorological and environmental conditions. This data is also used to validate the tropospheric ozone measurements of spaceborne missions. DataAccess enables users to download ground station data.
+Ground Station Networks Observation Data - AirNow
+https://www.airnow.gov/
+This website is a partnership of the U.S. Environmental Protection Agency, National Oceanic and Atmospheric Administration (NOAA), National Park Service, NASA, Centers for Disease Control, and tribal, state, and local air quality agencies. Check out the Maps & Data section for more information!
+Ground Station Networks Observation Data - OpenAQ
+https://openaq.org/
+This site is an open community and platform providing programmatic access to historic and real-time air quality measurements. Data from low-cost sensors are provided through OpenAQ. Data Access enables users to connect with ground station data.
+Your First Step to Access NASA Data - Earthdata Login (EDL)
+https://urs.earthdata.nasa.gov/
+EDL is a single mechanism for user registration and profile management for all NASA Earthdata’s data, tools, services.
+Video shows how and why to get started.
+Obtain an Earthdata login provides access to register for a new account.
+Earthdata Login Tips answers questions about Earthdata Login.
+Browse & Visualize Data with NASA WorldView
+https://worldview.earthdata.nasa.gov/
+WorldView is an open source code app from NASA that provides the capability to interactively browse over 1000 global, full-resolution, satellite imagery layers and then download the underlying data.
+Browse & Visualize Data with NASA Giovanni
+https://giovanni.gsfc.nasa.gov/giovanni/
+Giovanni is an online (web) environment for the display and analysis of geophysical parameters in which the provenance (data lineage) can easily be accessed. (Note: this site does not archive TEMPO data but contains other air quality and weather data.)
+Browse, Visualize, and Access Data with NASA Earthdata Geographic InformationSystem (GIS)
+https://gis.earthdata.nasa.gov/
+This resource distributes cloud-native, GIS-ready NASA Earth Science data, services, and resources. These include ArcGIS and Open Geospatial Consortium (OGC)-compliant raster and feature geospatial services.
+Browse & Access Data with NASA Earthdata Search
+https://search.earthdata.nasa.gov/
+A map-based search for spatiotemporal queries, data download, and cloud access links based on user query; provides access to transformation tools like Open-source Project for a Network Data Access Protocol (OPeNDAP) and NASA Earthdata Harmony; provides Hypertext Transfer Protocol Secure (HTTPS) and direct data access.
+Browse & Access Data with NASA Earthaccess
+https://github.com/nsidc/earthaccess?utm_source=ESDS&utm_medium=presentation&utm_campaign=outreach
+A python library to search for, and download or stream NASA Earth science data with just a few lines of code. Ideal for programmatic workflows, queries for NASA datasets; returns download and cloud access links; backend = CMR Application Programming Interface (API). It uses VirtualiZarrand DMR++ to provide performant cloud-ready data access.
+Compute in the Cloud with Xarray
+https://docs.xarray.dev/en/stable/
+Xarray is a standard open-source python library that enables users to analyze large, chunked, N-dimensional arrays, either local or cloud based, and provides a common access and processingAPI, enabling users to seamlessly scale computations across many of the common data file formats used for storing NASA data.
+Compute in the Cloud with NASA Earthdata Cloud Cookbook
+https://nasa-openscapes.github.io/earthdata-cloud-cookbook/?utm_source=ESDS&utm_medium=presentation&utm_campaign=outreach
+This cookbook is learning-oriented to support scientific researchers who use NASA Earthdata asNASA migrates data and workflows to the cloud.
+Access & Transform Data with OPeNDAP
+https://opendap.earthdata.nasa.gov/?utm_source=ESDS&utm_medium=presentation&utm_campaign=outreach
+The Open-source Project for a Network Data Access Protocol (OPeNDAP) provides researchers with access to NASA Earth science data from a wide variety of programs.
+Access & Transform Data with NASA Earthdata Harmony
+https://harmony.earthdata.nasa.gov/
+Harmony allows you to seamlessly analyze Earth observation data from different NASA data centers with services that offer data reduction and common access mechanisms across all NASA data centers. There is a python client library called harmony-py that exists as a wrapper for the Harmony services, and this notebook gives a brief introduction to the Harmony Application Programming Interface (API) services.
+Access Data Programmatically with the Earthdata Developer Portal
+https://www.earthdata.nasa.gov/collaborate/open-data-services-and-software/api?utm_source=ESDS&utm_medium=presentation&utm_campaign=outreach
+A resource for application developers who wish to build applications that search, access, and browse NASA Earth Observing System Data and Information System (EOSDIS)-hosted Earthscience data.
+Access Data Programmatically with NASA Global Imagery Browse Services (GIBS) API
+https://www.earthdata.nasa.gov/engage/open-data-services-software/earthdata-developer-portal/gibs-api
+This API provides access to global, full-resolution satellite imagery in a highly responsive manner, enabling interactive exploration of Earth. Visit this resource for help using Python to Access the GIBS API.
+Access Data Programmatically with NASA’s Application for Extracting and ExploringAnalysis Ready Samples (AppEEARS)
+https://appeears.earthdatacloud.nasa.gov/
+AppEEARS offers users a simple and efficient way to perform data access and transformation processes. View AppEEARS documentation and API documentation for more information. Additionally, you can work with the data in the cloud using provided S3 links. Visit AppEEARS Data Resources Repository for more tutorials on how to work with AppEEARS programmatically.
+
+
+
+SPACE AGENCY PARTNER RESOURCES
+
+
+Canadian Space Agency (CSA)
+Optical Spectrograph and InfraRed Imaging System (OSIRIS) - Data Repository: 
+https://donnees-data.asc-csa.gc.ca/en/dataset/6c3f7e9c-7b43-4a6b-a924-a1bef1a9cf74
+Canada's Optical Spectrograph and InfraRed Imaging System (OSIRIS) is the optical payload on Sweden's Odin satellite. It works in synergy with Sweden's advanced radiometer and measures atmospheric composition. Since 2001, OSIRIS has obtained valuable information on the upper atmosphere. It focuses its attention on altitudes from 7 to 90 km—between the highest mountains and the edge of space—and measures concentrations of ozone, aerosols and nitrogen dioxide. Data provided by OSIRIS helps scientists better understand the impact of human activities and natural phenomena on the environment and climate.
+
+Brazilian Space Agency (AEB)
+
+Greenhouse Gas Emissions and Removals Estimating System (SEEG): https://seeg.eco.br/#emissoes
+The Greenhouse Gas Emissions and Removals Estimating System (SEEG) provides comprehensive and updated data on greenhouse gas emissions and removals in Brazil. Developed by the Climate Observatory, the platform covers key sectors such as agriculture, energy, land use, industry, and waste. SEEG integrates official statistics and scientific methodologies to generate consistent historical series, supporting transparency, public policies, and climate action. All data are openly accessible through an interactive platform with visualization, comparison, and download tools.
+Center for Weather Forecast and Climate Studies (CPTEC) at the Brazilian National Institute for Space Exploration (INPE): 
+http://meioambiente.cptec.inpe.br/
+The Center for Weather Forecast and Climate Studies (CPTEC) provides high-resolution weather forecasts, climate monitoring, and environmental modeling for Brazil and South America. Using advanced numerical models and satellite data, CPTEC generates short to long-term forecasts, severe weather alerts, and climate trend analyses. Its platform offers public access to dynamic maps, time series, and predictive simulations, supporting sectors such as agriculture, civil defense, and energy planning. All information is continuously updated and available through interactive tools for data exploration and visualization.
+

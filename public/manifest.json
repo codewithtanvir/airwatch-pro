@@ -1,0 +1,153 @@
+{
+  "name": "AirWatch Pro - Air Quality Monitoring",
+  "short_name": "AirWatch Pro",
+  "description": "Real-time air quality monitoring with NASA TEMPO satellite data integration",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#3b82f6",
+  "orientation": "portrait-primary",
+  "scope": "/",
+  "lang": "en-US",
+  "categories": ["health", "utilities", "weather", "environment"],
+  "icons": [
+    {
+      "src": "/image/favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/icon-72x72.svg",
+      "sizes": "72x72",
+      "type": "image/svg+xml",
+      "purpose": "badge"
+    },
+    {
+      "src": "/icon-96x96.svg",
+      "sizes": "96x96",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    },
+    {
+      "src": "/icon-128x128.svg",
+      "sizes": "128x128",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    },
+    {
+      "src": "/icon-144x144.svg",
+      "sizes": "144x144",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    },
+    {
+      "src": "/icon-152x152.svg",
+      "sizes": "152x152",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    },
+    {
+      "src": "/icon-192x192.svg",
+      "sizes": "192x192",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/icon-384x384.svg",
+      "sizes": "384x384",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    },
+    {
+      "src": "/icon-512x512.svg",
+      "sizes": "512x512",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ],
+  "screenshots": [
+    {
+      "src": "/screenshot1.png",
+      "sizes": "540x720",
+      "type": "image/png",
+      "form_factor": "narrow",
+      "label": "AirWatch Pro Dashboard - Mobile View"
+    },
+    {
+      "src": "/screenshot2.png",
+      "sizes": "1280x720",
+      "type": "image/png",
+      "form_factor": "wide",
+      "label": "AirWatch Pro Dashboard - Desktop View"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "Dashboard",
+      "short_name": "Dashboard",
+      "description": "View air quality dashboard",
+      "url": "/?tab=dashboard",
+      "icons": [
+        {
+          "src": "/shortcut-current.png",
+          "sizes": "96x96"
+        }
+      ]
+    },
+    {
+      "name": "Map View",
+      "short_name": "Maps",
+      "description": "View air quality forecast maps",
+      "url": "/?tab=map",
+      "icons": [
+        {
+          "src": "/shortcut-maps.png",
+          "sizes": "96x96"
+        }
+      ]
+    },
+    {
+      "name": "TEMPO Satellite",
+      "short_name": "TEMPO",
+      "description": "View NASA TEMPO satellite data",
+      "url": "/?tab=satellite",
+      "icons": [
+        {
+          "src": "/shortcut-alerts.png",
+          "sizes": "96x96"
+        }
+      ]
+    },
+    {
+      "name": "Alerts",
+      "short_name": "Alerts",
+      "description": "View personalized health alerts",
+      "url": "/?tab=alerts",
+      "icons": [
+        {
+          "src": "/shortcut-alerts.png",
+          "sizes": "96x96"
+        }
+      ]
+    }
+  ],
+  "features": [
+    "cross-origin-isolated"
+  ],
+  "related_applications": [],
+  "prefer_related_applications": false,
+  "edge_side_panel": {
+    "preferred_width": 400
+  },
+  "launch_handler": {
+    "client_mode": "navigate-existing"
+  },
+  "display_override": ["window-controls-overlay", "standalone"],
+  "protocol_handlers": [
+    {
+      "protocol": "web+airwatch",
+      "url": "/?location=%s"
+    }
+  ]
+}

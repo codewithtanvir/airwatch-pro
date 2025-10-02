@@ -1,0 +1,109 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    
+    <!-- PWA Meta Tags -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#3b82f6" />
+    <meta name="description" content="Real-time air quality monitoring and forecasting application with NASA TEMPO satellite data, health recommendations, and personalized alerts." />
+    
+    <!-- PWA Manifest -->
+    <link rel="manifest" href="/manifest.json" />
+    
+    <!-- Standard Favicon -->
+    <link rel="icon" type="image/svg+xml" href="/image/favicon.svg" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/icon-128x128.svg" />
+    <link rel="icon" type="image/png" sizes="16x16" href="/icon-72x72.svg" />
+    
+    <!-- Apple Touch Icons -->
+    <link rel="apple-touch-icon" sizes="152x152" href="/icon-152x152.svg" />
+    <link rel="apple-touch-icon" sizes="144x144" href="/icon-144x144.svg" />
+    <link rel="apple-touch-icon" sizes="128x128" href="/icon-128x128.svg" />
+    <link rel="apple-touch-icon" sizes="96x96" href="/icon-96x96.svg" />
+    <link rel="apple-touch-icon" sizes="72x72" href="/icon-72x72.svg" />
+    
+    <!-- iOS Safari PWA Meta Tags -->
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+    <meta name="apple-mobile-web-app-title" content="AirWatch Pro" />
+    
+    <!-- Microsoft Windows/Edge PWA Meta Tags -->
+    <meta name="msapplication-TileImage" content="/icon-144x144.svg" />
+    <meta name="msapplication-TileColor" content="#3b82f6" />
+    <meta name="msapplication-config" content="/browserconfig.xml" />
+    
+    <!-- Additional PWA Meta Tags -->
+    <meta name="mobile-web-app-capable" content="yes" />
+    <meta name="application-name" content="AirWatch Pro" />
+    
+    <!-- Open Graph Meta Tags for Social Sharing -->
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="AirWatch Pro - Air Quality Monitoring" />
+    <meta property="og:description" content="Real-time air quality monitoring with NASA TEMPO satellite data integration" />
+    <meta property="og:image" content="/icon-512x512.svg" />
+    <meta property="og:url" content="/" />
+    <meta property="og:site_name" content="AirWatch Pro" />
+    
+    <!-- Twitter Card Meta Tags -->
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:title" content="AirWatch Pro - Air Quality Monitoring" />
+    <meta name="twitter:description" content="Real-time air quality monitoring with NASA TEMPO satellite data integration" />
+    <meta name="twitter:image" content="/icon-512x512.svg" />
+    
+    <!-- Security and Performance Meta Tags -->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="robots" content="index, follow" />
+    <meta name="googlebot" content="index, follow" />
+    
+    <!-- App Title -->
+    <title>AirWatch Pro - Air Quality Monitoring</title>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+    
+    <!-- Service Worker Registration -->
+    <script>
+      if ('serviceWorker' in navigator) {
+        window.addEventListener('load', () => {
+          navigator.serviceWorker.register('/sw.js')
+            .then((registration) => {
+              console.log('SW registered: ', registration);
+              
+              // Check for updates
+              registration.addEventListener('updatefound', () => {
+                const newWorker = registration.installing;
+                newWorker.addEventListener('statechange', () => {
+                  if (newWorker.state === 'installed' && navigator.serviceWorker.controller) {
+                    // New update available
+                    if (confirm('New version available! Reload to update?')) {
+                      window.location.reload();
+                    }
+                  }
+                });
+              });
+            })
+            .catch((registrationError) => {
+              console.log('SW registration failed: ', registrationError);
+            });
+        });
+      }
+
+      // Check for PWA install prompt
+      let deferredPrompt;
+      window.addEventListener('beforeinstallprompt', (e) => {
+        e.preventDefault();
+        deferredPrompt = e;
+        // Store the event for later use
+        window.dispatchEvent(new CustomEvent('pwa-installable', { detail: deferredPrompt }));
+      });
+      
+      // Handle PWA installation
+      window.addEventListener('appinstalled', (evt) => {
+        console.log('PWA was installed');
+        window.dispatchEvent(new CustomEvent('pwa-installed'));
+      });
+    </script>
+  </body>
+</html>
