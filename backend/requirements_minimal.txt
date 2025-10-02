@@ -46,7 +46,7 @@ cryptography>=41.0.0
 loguru>=0.7.0
 
 # === CACHING ===
-redis>=5.0.0
+# Removed Redis - using in-memory caching instead
 
 # === TESTING ===
 pytest>=7.4.0

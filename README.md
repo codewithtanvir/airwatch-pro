@@ -85,8 +85,8 @@ AirWatch Pro is among the **first applications** to integrate live TEMPO data fo
 
 - **FastAPI** (Python) for high-performance async API
 - **Supabase** for real-time database and authentication
-- **Redis** for caching and session management
-- **Docker + Kubernetes** for scalable deployment
+- **In-memory caching** for fast data access
+- **Docker** for containerized deployment
 
 **Data Sources:**
 
@@ -261,7 +261,7 @@ SENDGRID_API_KEY=your_sendgrid_key
 ## � Why AirWatch Pro Wins
 
 ### **Technical Excellence**
-- ✅ **Production-ready** architecture with Docker/Kubernetes
+- ✅ **Production-ready** architecture with Docker deployment
 - ✅ **Real NASA data** integration (not simulated)
 - ✅ **Advanced AI/ML** with proven accuracy
 - ✅ **Scalable design** ready for millions of users

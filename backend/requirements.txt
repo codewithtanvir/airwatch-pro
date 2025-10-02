@@ -75,7 +75,7 @@ cryptography==41.0.8
 loguru==0.7.2
 
 # === CACHING ===
-redis==5.0.1
+# Removed Redis - using in-memory caching instead
 
 # === HEALTH & MEDICAL CALCULATIONS ===
 # For health risk assessment algorithms
