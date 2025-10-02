@@ -1,5 +1,6 @@
 # AirWatch Pro Backend Dependencies
 # Production-ready air quality monitoring backend with FastAPI and Supabase
+# Updated with NASA TEMPO, forecasting, and health alert service dependencies
 
 # === CORE FRAMEWORK ===
 fastapi==0.104.1
@@ -20,18 +21,41 @@ realtime==1.0.0
 gotrue==2.12.4
 storage3==0.7.0
 
-# === DATA PROCESSING ===
-pandas==2.1.4
-numpy==1.25.2
-scipy==1.11.4
+# === DATA PROCESSING & SCIENTIFIC COMPUTING ===
+pandas>=2.1.0
+numpy>=1.26.0
+scipy>=1.11.0
+scikit-learn>=1.3.0
 pytz==2023.3
 python-dateutil==2.8.2
 
+# === NASA SATELLITE DATA & ATMOSPHERIC SCIENCE ===
+# For NASA EarthData API integration and satellite data processing
+netcdf4>=1.6.0
+h5py>=3.10.0
+xarray>=2023.12.0
+cftime>=1.6.0
+
 # === GEOSPATIAL & MAPPING ===
 geopy==2.4.1
-shapely==2.0.2
-folium==0.15.1
-geopandas==0.14.1
+shapely>=2.0.0
+folium>=0.15.0
+geopandas>=0.14.0
+
+# === WEATHER & ATMOSPHERIC DATA ===
+# For weather service integration and atmospheric calculations
+metpy>=1.5.0
+siphon>=0.9
+
+# === MATHEMATICAL & STATISTICAL ANALYSIS ===
+# For forecasting algorithms and ensemble modeling
+statsmodels>=0.14.0
+matplotlib>=3.8.0
+seaborn>=0.13.0
+
+# === XML PROCESSING ===
+# For NASA CMR API XML responses
+lxml>=5.0.0
 
 # === ENVIRONMENTAL VARIABLES ===
 python-dotenv==1.0.0
@@ -46,12 +70,25 @@ python-jose[cryptography]==3.3.0
 passlib[bcrypt]==1.7.4
 python-multipart==0.0.6
 cryptography==41.0.8
+
 # === LOGGING & MONITORING ===
 loguru==0.7.2
 
 # === CACHING ===
 redis==5.0.1
 
+# === HEALTH & MEDICAL CALCULATIONS ===
+# For health risk assessment algorithms
+python-dateutil==2.8.2
+
 # === TESTING ===
 pytest==7.4.3
 pytest-asyncio==0.21.1
+pytest-httpx==0.21.3
+pytest-mock==3.12.0
+
+# === DEVELOPMENT TOOLS ===
+black==23.12.1
+isort==5.13.2
+flake8==7.0.0
+mypy==1.8.0

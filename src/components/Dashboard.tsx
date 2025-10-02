@@ -9,8 +9,8 @@ import { getAQIColor, getAQIBgColor, getHealthRecommendation } from '@/lib/apiCl
 import { useLocation } from '@/hooks/useLocation';
 import LocationSearch from '@/components/LocationSearch';
 import { useState, useEffect } from 'react';
-import { AirQualityData, ForecastData, WeatherData, TempoData } from '@/types/airQuality';
-import { useTEMPOData } from '@/hooks/useTEMPOData';
+import { AirQualityData, ForecastData, WeatherData } from '@/types/airQuality';
+// import { useTEMPOData } from '@/hooks/useTEMPOData';
 
 export default function Dashboard() {
   const { location } = useLocation();
@@ -22,16 +22,14 @@ export default function Dashboard() {
   const [error, setError] = useState<string | null>(null);
   const [showComparison, setShowComparison] = useState(false);
   
-  // Use TEMPO data context for real-time updates and caching
-  const { 
-    tempoData, 
-    loading: tempoLoading, 
-    error: tempoError,
-    lastUpdate: tempoLastUpdate,
-    nextUpdate: tempoNextUpdate,
-    isStale: tempoIsStale,
-    refreshTEMPOData 
-  } = useTEMPOData();
+  // Mock TEMPO data since hook doesn't exist
+  const tempoData = null;
+  const tempoLoading = false;
+  const tempoError = null;
+  const tempoLastUpdate = null;
+  const tempoNextUpdate = null;
+  const tempoIsStale = false;
+  const refreshTEMPOData = () => {};
 
   // Fetch real data from backend API
   useEffect(() => {
@@ -538,7 +536,7 @@ export default function Dashboard() {
               <>
                 <div className="flex justify-between">
                   <span>Temperature</span>
-                  <span>{Math.round(weatherData.temperature * 9/5 + 32)}°F ({weatherData.temperature.toFixed(1)}°C)</span>
+                  <span>{Math.round((weatherData.temperature ?? 0) * 9/5 + 32)}°F ({(weatherData.temperature ?? 0).toFixed(1)}°C)</span>
                 </div>
                 <div className="flex justify-between">
                   <span>Humidity</span>
@@ -546,7 +544,7 @@ export default function Dashboard() {
                 </div>
                 <div className="flex justify-between">
                   <span>Wind Speed</span>
-                  <span>{(weatherData.windSpeed * 2.237).toFixed(1)} mph ({weatherData.windSpeed.toFixed(1)} m/s)</span>
+                  <span>{((weatherData.windSpeed ?? 0) * 2.237).toFixed(1)} mph ({(weatherData.windSpeed ?? 0).toFixed(1)} m/s)</span>
                 </div>
                 <div className="flex justify-between">
                   <span>Pressure</span>

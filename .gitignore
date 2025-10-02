@@ -116,6 +116,7 @@ MANIFEST
 # Virtual environments
 .env
 .venv
+.venv-*/
 env/
 venv/
 ENV/
@@ -145,5 +146,10 @@ venv.bak/
 test-results/
 playwright-report/
 playwright/.cache/
+
+# Project-specific excludes
+backend_backup/
+hackathon_docs/
+
+# Temporary and cache files
 node_modules
-#backup backend

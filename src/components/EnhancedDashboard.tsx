@@ -675,8 +675,8 @@ export default function EnhancedDashboard() {
                     </div>
                     <div className="flex-1">
                       <div className="font-medium text-gray-900">Temperature</div>
-                      <div className="text-xl font-semibold text-gray-800">{weatherData.temperature.toFixed(1)}°C</div>
-                      <div className="text-sm text-gray-500">{(weatherData.temperature * 9/5 + 32).toFixed(1)}°F</div>
+                      <div className="text-xl font-semibold text-gray-800">{(weatherData.temperature ?? 0).toFixed(1)}°C</div>
+                      <div className="text-sm text-gray-500">{((weatherData.temperature ?? 0) * 9/5 + 32).toFixed(1)}°F</div>
                     </div>
                   </div>
                   
@@ -686,9 +686,9 @@ export default function EnhancedDashboard() {
                     </div>
                     <div className="flex-1">
                       <div className="font-medium text-gray-900">Humidity</div>
-                      <div className="text-xl font-semibold text-gray-800">{weatherData.humidity.toFixed(0)}%</div>
+                      <div className="text-xl font-semibold text-gray-800">{(weatherData.humidity ?? 0).toFixed(0)}%</div>
                       <div className="text-sm text-gray-500">
-                        {weatherData.humidity < 30 ? 'Dry' : weatherData.humidity > 70 ? 'Humid' : 'Comfortable'}
+                        {(weatherData.humidity ?? 0) < 30 ? 'Dry' : (weatherData.humidity ?? 0) > 70 ? 'Humid' : 'Comfortable'}
                       </div>
                     </div>
                   </div>
@@ -699,8 +699,8 @@ export default function EnhancedDashboard() {
                     </div>
                     <div className="flex-1">
                       <div className="font-medium text-gray-900">Wind Speed</div>
-                      <div className="text-xl font-semibold text-gray-800">{weatherData.windSpeed.toFixed(1)} m/s</div>
-                      <div className="text-sm text-gray-500">{(weatherData.windSpeed * 2.237).toFixed(1)} mph</div>
+                      <div className="text-xl font-semibold text-gray-800">{(weatherData.windSpeed ?? 0).toFixed(1)} m/s</div>
+                      <div className="text-sm text-gray-500">{((weatherData.windSpeed ?? 0) * 2.237).toFixed(1)} mph</div>
                     </div>
                   </div>
                   
@@ -710,7 +710,7 @@ export default function EnhancedDashboard() {
                     </div>
                     <div className="flex-1">
                       <div className="font-medium text-gray-900">Pressure</div>
-                      <div className="text-xl font-semibold text-gray-800">{weatherData.pressure.toFixed(0)}</div>
+                      <div className="text-xl font-semibold text-gray-800">{(weatherData.pressure ?? 0).toFixed(0)}</div>
                       <div className="text-sm text-gray-500">hPa</div>
                     </div>
                   </div>
@@ -721,7 +721,7 @@ export default function EnhancedDashboard() {
                     </div>
                     <div className="flex-1">
                       <div className="font-medium text-gray-900">UV Index</div>
-                      <div className="text-xl font-semibold text-gray-800">{weatherData.uvIndex.toFixed(1)}</div>
+                      <div className="text-xl font-semibold text-gray-800">{(weatherData.uvIndex ?? 0).toFixed(1)}</div>
                       <div className="text-sm text-gray-500">
                         {weatherData.uvIndex < 3 ? 'Low' : weatherData.uvIndex < 6 ? 'Moderate' : weatherData.uvIndex < 8 ? 'High' : 'Very High'}
                       </div>
@@ -734,7 +734,7 @@ export default function EnhancedDashboard() {
                     </div>
                     <div className="flex-1">
                       <div className="font-medium text-gray-900">Visibility</div>
-                      <div className="text-xl font-semibold text-gray-800">{weatherData.visibility.toFixed(1)}</div>
+                      <div className="text-xl font-semibold text-gray-800">{(weatherData.visibility ?? 0).toFixed(1)}</div>
                       <div className="text-sm text-gray-500">km</div>
                     </div>
                   </div>
