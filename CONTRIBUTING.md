@@ -25,12 +25,12 @@ We're excited that you're interested in contributing to AirWatch Pro! This proje
 - **🎨 UI/UX**: Improve user interface and experience
 - **🌍 Internationalization**: Add support for multiple languages
 
-#### Backend Development (Python/FastAPI)
+#### API Functions Development (Node.js/Vercel)
 - **🛰️ NASA Integration**: Enhance TEMPO satellite data processing
 - **🤖 Machine Learning**: Improve prediction accuracy and models
 - **🚨 Alert System**: Enhance notification delivery and targeting
-- **📊 API Development**: Expand endpoints and functionality
-- **⚡ Performance**: Optimize database queries and caching
+- **📊 API Development**: Expand serverless endpoints and functionality
+- **⚡ Performance**: Optimize function performance and caching
 
 #### Infrastructure & DevOps
 - **🐳 Docker**: Improve containerization and deployment
@@ -65,10 +65,9 @@ We're excited that you're interested in contributing to AirWatch Pro! This proje
 
 ```bash
 # Required software
-- Node.js 18+ (for frontend)
-- Python 3.11+ (for backend)
-- Docker & Docker Compose (recommended)
+- Node.js 18+ (for frontend and API functions)
 - Git (version control)
+- Vercel CLI (for deployment)
 
 # Recommended tools
 - VS Code with extensions
@@ -89,30 +88,29 @@ cp .env.example .env
 # Edit .env with your API keys (see Setup Guide)
 
 # 3. Install dependencies
-npm install                    # Frontend dependencies
-cd backend && pip install -r requirements.txt  # Backend dependencies
+npm install                    # Frontend and API dependencies
 
 # 4. Start development servers
-npm run dev                    # Frontend (port 3000)
-cd backend && python start_server.py  # Backend (port 8000)
+npm run dev                    # Frontend with Vite (port 5173)
+vercel dev                     # API functions locally (port 3000)
 
 # 5. Run tests
 npm run test                   # Frontend tests
-cd backend && pytest          # Backend tests
+npm run test:api              # API function tests
 ```
 
-### Docker Development (Recommended)
+### Vercel Development (Recommended)
 
 ```bash
-# Start entire development environment
-docker-compose -f docker-compose.dev.yml up
+# Start Vercel development environment
+vercel dev
 
 # This starts:
 # - Frontend with hot reload
-# - Backend with auto-restart
-# - PostgreSQL database
-# - Redis cache
-# - Development monitoring
+# - API functions locally
+# - Automatic HTTPS
+# - Environment variable management
+# - Real Vercel simulation
 ```
 
 ## 📋 Contribution Guidelines
@@ -236,45 +234,53 @@ const AirQualityDashboard: React.FC<Props> = ({ location }) => {
 };
 ```
 
-#### Python (Backend)
+#### Node.js API Functions (Vercel)
 
-```python
-# Use type hints
-from typing import List, Optional
-from pydantic import BaseModel
+```javascript
+// Use TypeScript for serverless functions
+import type { VercelRequest, VercelResponse } from '@vercel/node';
 
-class TEMPOData(BaseModel):
-    """NASA TEMPO satellite data model"""
-    timestamp: datetime
-    latitude: float
-    longitude: float
-    no2_level: Optional[float]
-    quality_flag: int
+interface AirQualityResponse {
+  coordinates: { lat: number; lon: number };
+  data: {
+    aqi: number;
+    level: string;
+    pollutants: Record<string, number>;
+    timestamp: string;
+  };
+}
 
-# Use async/await for I/O operations
-async def fetch_tempo_data(lat: float, lon: float) -> TEMPOData:
-    """Fetch real-time TEMPO satellite data"""
-    async with httpx.AsyncClient() as client:
-        response = await client.get(f"/tempo/data?lat={lat}&lon={lon}")
-        return TEMPOData.model_validate(response.json())
+// Use proper HTTP handlers
+export default function handler(req: VercelRequest, res: VercelResponse) {
+  // Set CORS headers
+  res.setHeader('Access-Control-Allow-Origin', '*');
+  res.setHeader('Content-Type', 'application/json');
+  
+  // Validate input
+  const { lat, lon } = req.query;
+  if (!lat || !lon) {
+    return res.status(400).json({ error: 'Missing coordinates' });
+  }
+  
+  try {
+    // Process air quality data
+    const data = calculateAirQuality(parseFloat(lat), parseFloat(lon));
+    res.status(200).json(data);
+  } catch (error) {
+    res.status(500).json({ error: 'Internal server error' });
+  }
+}
 
-# Use descriptive function names and docstrings
-def calculate_health_risk(
-    air_quality: AirQualityData, 
-    population: PopulationData
-) -> HealthRiskAssessment:
-    """
-    Calculate health risk for population based on air quality.
-    
-    Args:
-        air_quality: Current air quality measurements
-        population: Demographic and health vulnerability data
-        
-    Returns:
-        Health risk assessment with recommendations
-    """
-    # Implementation
-    pass
+// Use descriptive function names and JSDoc
+/**
+ * Calculate air quality index for given coordinates
+ * @param lat - Latitude coordinate
+ * @param lon - Longitude coordinate
+ * @returns Air quality data with AQI and pollutant levels
+ */
+function calculateAirQuality(lat: number, lon: number): AirQualityResponse {
+  // Implementation
+}
 ```
 
 #### Documentation Standards
