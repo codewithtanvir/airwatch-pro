@@ -1,4 +1,2 @@
-fastapi==0.104.1
-httpx==0.25.2
-pydantic==2.5.2
-python-dotenv==1.0.0
+# Minimal dependencies for Vercel serverless functions
+# No FastAPI dependency to reduce bundle size

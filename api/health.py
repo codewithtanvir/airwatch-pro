@@ -1,16 +1,18 @@
-from fastapi import FastAPI
-from fastapi.responses import JSONResponse
+from http.server import BaseHTTPRequestHandler
+import json
 
-app = FastAPI()
-
-@app.get("/api/health")
-def health_check():
-    return {"status": "healthy", "service": "airwatch-pro", "platform": "vercel"}
-
-@app.get("/")
-def root():
-    return {"message": "AirWatch Pro API", "status": "running", "platform": "vercel"}
-
-# Vercel serverless function handler
-def handler(request):
-    return app(request)
+class handler(BaseHTTPRequestHandler):
+    def do_GET(self):
+        self.send_response(200)
+        self.send_header('Content-type', 'application/json')
+        self.send_header('Access-Control-Allow-Origin', '*')
+        self.end_headers()
+        
+        response = {
+            "status": "healthy", 
+            "service": "airwatch-pro", 
+            "platform": "vercel",
+            "timestamp": "2025-10-03T00:00:00Z"
+        }
+        
+        self.wfile.write(json.dumps(response).encode())
