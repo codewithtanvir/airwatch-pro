@@ -1,1 +1,0 @@
-export { useTEMPOData } from '@/contexts/TEMPODataContext';

@@ -1,8 +1,6 @@
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
-import { Switch } from '@/components/ui/switch';
-import { Slider } from '@/components/ui/slider';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Alert, AlertDescription } from '@/components/ui/alert';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
@@ -10,11 +8,9 @@ import { Progress } from '@/components/ui/progress';
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip';
 import { 
   MapPin, 
-  Satellite, 
   Radio, 
   Cloud, 
   Loader2, 
-  Layers, 
   Eye, 
   Info, 
   Zap, 
@@ -30,37 +26,34 @@ import {
   Target,
   Activity
 } from 'lucide-react';
-import { apiClient, getAQIColor, getAQIBgColor } from '@/lib/apiClient';
+import { LoadingState, ErrorState } from '@/components/ui/LoadingState';
 import { useState, useEffect } from 'react';
 import { AirQualityData } from '@/types/airQuality';
 import { useLocation } from '@/hooks/useLocation';
 
-interface TEMPOData {
-  satellite: string;
-  instrument: string;
-  no2_column_density: number;
-  o3_column_density: number;
-  hcho_column_density: number;
-  aerosol_optical_depth: number;
-  cloud_fraction: number;
-  quality_flag: number;
-  observation_time: string;
-  pixel_coordinates: {
-    lat: number;
-    lng: number;
-  };
-  spatial_resolution_km: number;
-}
+// Utility functions for AQI styling
+const getAQIColor = (aqi: number) => {
+  if (aqi <= 50) return 'text-green-600';
+  if (aqi <= 100) return 'text-yellow-600';
+  if (aqi <= 150) return 'text-orange-600';
+  if (aqi <= 200) return 'text-red-600';
+  if (aqi <= 300) return 'text-purple-600';
+  return 'text-red-800';
+};
+
+const getAQIBgColor = (aqi: number) => {
+  if (aqi <= 50) return 'bg-green-50 border-green-200';
+  if (aqi <= 100) return 'bg-yellow-50 border-yellow-200';
+  if (aqi <= 150) return 'bg-orange-50 border-orange-200';
+  if (aqi <= 200) return 'bg-red-50 border-red-200';
+  if (aqi <= 300) return 'bg-purple-50 border-purple-200';
+  return 'bg-red-100 border-red-300';
+};
 
 export default function AirQualityMap() {
   const [locationData, setLocationData] = useState<AirQualityData[]>([]);
-  const [tempoData, setTempoData] = useState<TEMPOData | null>(null);
   const [loading, setLoading] = useState(true);
-  const [tempoLoading, setTempoLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
-  const [showTEMPOOverlay, setShowTEMPOOverlay] = useState(false);
-  const [overlayOpacity, setOverlayOpacity] = useState([75]);
-  const [selectedPollutant, setSelectedPollutant] = useState('no2');
   const [selectedStation, setSelectedStation] = useState<number | null>(null);
   const [viewMode, setViewMode] = useState<'grid' | 'list' | 'heatmap'>('grid');
   const [filterLevel, setFilterLevel] = useState<string>('all');
@@ -75,14 +68,65 @@ export default function AirQualityMap() {
       setLoading(true);
       setError(null);
       
-      // Simulate API call delay
-      await new Promise(resolve => setTimeout(resolve, 1000));
+      if (!location?.coordinates) {
+        setError('Location not available');
+        return;
+      }
+
+      // Get real stations data from backend
+      const baseUrl = import.meta.env.VITE_API_BASE_URL || 'http://localhost:8000';
+      const response = await fetch(
+        `${baseUrl}/api/v1/air-quality/stations?latitude=${location.coordinates.lat}&longitude=${location.coordinates.lng}&radius=50`
+      );
+
+      if (response.ok) {
+        const data = await response.json();
+        console.log('Stations data received:', data);
+        
+        if (data.success && data.stations) {
+          // Convert backend format to frontend format
+          const convertedData: AirQualityData[] = data.stations.map((station: {
+            location: string;
+            coordinates: { lat: number; lng: number };
+            aqi: number;
+            level: string;
+            pollutants: Record<string, number>;
+            source: string;
+            timestamp: string;
+          }) => ({
+            location: station.location,
+            coordinates: station.coordinates,
+            aqi: station.aqi,
+            level: station.level,
+            pollutants: {
+              pm25: station.pollutants.pm25 || 0,
+              pm10: station.pollutants.pm10 || 0,
+              o3: station.pollutants.o3 || 0,
+              no2: station.pollutants.no2 || 0,
+              co: station.pollutants.co || 0,
+              so2: station.pollutants.so2 || 0
+            },
+            source: station.source.includes('OpenAQ') ? 'OpenAQ' : 'Ground Station',
+            timestamp: station.timestamp
+          }));
+          
+          setLocationData(convertedData);
+        } else {
+          throw new Error('Invalid response format');
+        }
+      } else {
+        throw new Error(`API responded with status ${response.status}`);
+      }
       
-      // In a real app, this would fetch from an API
+    } catch (err) {
+      console.error('Error loading station data, using fallback:', err);
+      setError('Using simulated data - real stations may be unavailable');
+      
+      // Fallback to enhanced mock data
       const mockData: AirQualityData[] = [
         {
           location: 'Downtown Station',
-          coordinates: { lat: 34.0522, lng: -118.2437 },
+          coordinates: { lat: location?.coordinates.lat || 34.0522, lng: location?.coordinates.lng || -118.2437 },
           aqi: 75,
           level: 'Moderate',
           pollutants: {
@@ -98,7 +142,7 @@ export default function AirQualityMap() {
         },
         {
           location: 'Airport Monitor',
-          coordinates: { lat: 34.0522, lng: -118.2437 },
+          coordinates: { lat: (location?.coordinates.lat || 34.0522) + 0.01, lng: (location?.coordinates.lng || -118.2437) + 0.01 },
           aqi: 112,
           level: 'Unhealthy for Sensitive Groups',
           pollutants: {
@@ -112,64 +156,20 @@ export default function AirQualityMap() {
           source: 'OpenAQ',
           timestamp: new Date().toISOString()
         }
-        // Add more mock data as needed
       ];
       
       setLocationData(mockData);
-    } catch (err) {
-      setError('Failed to load location data');
-      console.error('Error loading location data:', err);
     } finally {
       setLoading(false);
     }
   };
 
-  // Load TEMPO satellite data
-  const loadTEMPOData = async () => {
-    try {
-      setTempoLoading(true);
-      
-      // Simulate API call delay
-      await new Promise(resolve => setTimeout(resolve, 1500));
-      
-      // In a real app, this would fetch from TEMPO API
-      const mockTempoData: TEMPOData = {
-        satellite: 'TEMPO',
-        instrument: 'TEMPO',
-        no2_column_density: 1.5e15,
-        o3_column_density: 3.2e18,
-        hcho_column_density: 8.7e14,
-        aerosol_optical_depth: 0.25,
-        cloud_fraction: 0.15,
-        quality_flag: 0,
-        observation_time: new Date().toISOString(),
-        pixel_coordinates: {
-          lat: 34.0522,
-          lng: -118.2437
-        },
-        spatial_resolution_km: 2.1
-      };
-      
-      setTempoData(mockTempoData);
-    } catch (err) {
-      console.error('Error loading TEMPO data:', err);
-    } finally {
-      setTempoLoading(false);
-    }
-  };
-
   useEffect(() => {
     loadLocationData();
-  }, [location]);
-
-  useEffect(() => {
-    loadTEMPOData();
-  }, [location, showTEMPOOverlay]);
+  }, [location]); // eslint-disable-line react-hooks/exhaustive-deps
 
   const getSourceIcon = (source: string) => {
     switch (source) {
-      case 'TEMPO':
-        return <Satellite className="w-4 h-4" />;
       case 'OpenAQ':
         return <Radio className="w-4 h-4" />;
       case 'Ground Station':
@@ -178,48 +178,6 @@ export default function AirQualityMap() {
         return <Cloud className="w-4 h-4" />;
       default:
         return <MapPin className="w-4 h-4" />;
-    }
-  };
-
-  const getPollutantValue = (pollutant: string) => {
-    if (!tempoData) return null;
-    
-    switch (pollutant) {
-      case 'no2':
-        return {
-          value: tempoData.no2_column_density,
-          unit: 'molecules/cm²',
-          formatted: `${(tempoData.no2_column_density / 1e15).toFixed(2)} × 10¹⁵`,
-          color: tempoData.no2_column_density > 3e15 ? 'text-red-600' : 
-                 tempoData.no2_column_density > 1e15 ? 'text-yellow-600' : 'text-green-600'
-        };
-      case 'o3':
-        return {
-          value: tempoData.o3_column_density,
-          unit: 'DU',
-          formatted: `${tempoData.o3_column_density.toFixed(1)} DU`,
-          color: tempoData.o3_column_density > 350 ? 'text-yellow-600' : 
-                 tempoData.o3_column_density > 250 ? 'text-green-600' : 'text-blue-600'
-        };
-      case 'hcho':
-        return {
-          value: tempoData.hcho_column_density,
-          unit: 'molecules/cm²',
-          formatted: `${(tempoData.hcho_column_density / 1e15).toFixed(2)} × 10¹⁵`,
-          color: tempoData.hcho_column_density > 1e16 ? 'text-red-600' : 
-                 tempoData.hcho_column_density > 5e15 ? 'text-yellow-600' : 'text-green-600'
-        };
-      case 'aod':
-        return {
-          value: tempoData.aerosol_optical_depth,
-          unit: '',
-          formatted: tempoData.aerosol_optical_depth.toFixed(3),
-          color: tempoData.aerosol_optical_depth > 0.5 ? 'text-red-600' : 
-                 tempoData.aerosol_optical_depth > 0.3 ? 'text-orange-600' : 
-                 tempoData.aerosol_optical_depth > 0.1 ? 'text-yellow-600' : 'text-green-600'
-        };
-      default:
-        return null;
     }
   };
 
@@ -306,13 +264,6 @@ export default function AirQualityMap() {
     return R * c;
   };
 
-  const isWithinTEMPOCoverage = () => {
-    if (!location?.coordinates) return false;
-    const { lat, lng } = location.coordinates;
-    // TEMPO coverage: North America (15°N to 55°N, 140°W to 60°W)
-    return lat >= 15 && lat <= 55 && lng >= -140 && lng <= -60;
-  };
-
   if (loading) {
     return (
       <div className="space-y-6">
@@ -329,10 +280,11 @@ export default function AirQualityMap() {
         </div>
         <Card className="shadow-lg">
           <CardContent className="p-8">
-            <div className="flex items-center justify-center space-x-2">
-              <Loader2 className="w-6 h-6 animate-spin" />
-              <span>Loading air quality data...</span>
-            </div>
+            <LoadingState 
+              type="stations" 
+              message="Loading air quality monitoring stations..." 
+              size="lg"
+            />
           </CardContent>
         </Card>
       </div>
@@ -355,12 +307,15 @@ export default function AirQualityMap() {
         </div>
         <Card className="shadow-lg">
           <CardContent className="p-8">
-            <div className="text-center">
-              <p className="text-red-600 mb-4">{error}</p>
-              <Button onClick={() => window.location.reload()}>
-                Try Again
-              </Button>
-            </div>
+            <ErrorState
+              title="Data Loading Issue"
+              message={error}
+              onRetry={() => {
+                setError(null);
+                loadLocationData();
+              }}
+              type={error.includes('simulated') ? 'warning' : 'error'}
+            />
           </CardContent>
         </Card>
       </div>
@@ -508,32 +463,14 @@ export default function AirQualityMap() {
               </Select>
             </div>
           </div>
-          
-          {/* TEMPO Overlay Controls */}
-          {isWithinTEMPOCoverage() && (
-            <div className="flex items-center space-x-3 p-3 bg-blue-50 rounded-lg border border-blue-200">
-              <Satellite className="w-5 h-5 text-blue-600" />
-              <div className="flex items-center space-x-2">
-                <span className="text-sm font-medium text-blue-900">TEMPO Satellite</span>
-                <Switch
-                  checked={showTEMPOOverlay}
-                  onCheckedChange={setShowTEMPOOverlay}
-                />
-              </div>
-            </div>
-          )}
         </div>
       </div>
 
       <Tabs defaultValue="stations" className="space-y-6">
-        <TabsList className="grid w-full grid-cols-3">
+        <TabsList className="grid w-full grid-cols-2">
           <TabsTrigger value="stations" className="flex items-center gap-2">
             <Target className="w-4 h-4" />
             Ground Stations
-          </TabsTrigger>
-          <TabsTrigger value="satellite" disabled={!showTEMPOOverlay || !tempoData} className="flex items-center gap-2">
-            <Satellite className="w-4 h-4" />
-            Satellite Data
           </TabsTrigger>
           <TabsTrigger value="heatmap" className="flex items-center gap-2">
             <BarChart3 className="w-4 h-4" />
@@ -724,184 +661,6 @@ export default function AirQualityMap() {
             </CardContent>
           </Card>
         </TabsContent>
-
-        <TabsContent value="satellite">
-          <Card className="shadow-lg">
-            <CardHeader className="pb-4">
-              <CardTitle className="flex items-center space-x-2">
-                <Satellite className="w-5 h-5 text-blue-600" />
-                <span>NASA TEMPO Satellite Data</span>
-                <Badge variant="outline" className="bg-blue-50 text-blue-700 border-blue-200">
-                  Live from Space
-                </Badge>
-              </CardTitle>
-            </CardHeader>
-            <CardContent className="space-y-6">
-              {tempoLoading ? (
-                <div className="flex items-center justify-center py-8">
-                  <Loader2 className="w-6 h-6 animate-spin mr-2" />
-                  <span>Loading satellite data...</span>
-                </div>
-              ) : tempoData ? (
-                <>
-                  {/* Overlay Controls */}
-                  <div className="bg-gray-50 p-4 rounded-lg space-y-4">
-                    <div className="flex items-center justify-between">
-                      <h4 className="font-semibold flex items-center gap-2">
-                        <Layers className="w-4 h-4" />
-                        Satellite Layer Controls
-                      </h4>
-                    </div>
-                    
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                      <div>
-                        <label className="text-sm font-medium mb-2 block">Pollutant Layer</label>
-                        <div className="grid grid-cols-2 gap-2">
-                          {['no2', 'o3', 'hcho', 'aod'].map((pollutant) => (
-                            <Button
-                              key={pollutant}
-                              variant={selectedPollutant === pollutant ? "default" : "outline"}
-                              size="sm"
-                              onClick={() => setSelectedPollutant(pollutant)}
-                              className="h-8"
-                            >
-                              {pollutant.toUpperCase()}
-                            </Button>
-                          ))}
-                        </div>
-                      </div>
-                      
-                      <div>
-                        <label className="text-sm font-medium mb-2 block">
-                          Overlay Opacity: {overlayOpacity[0]}%
-                        </label>
-                        <Slider
-                          value={overlayOpacity}
-                          onValueChange={setOverlayOpacity}
-                          max={100}
-                          min={0}
-                          step={5}
-                          className="w-full"
-                        />
-                      </div>
-                    </div>
-                  </div>
-
-                  {/* Current Satellite Data Display */}
-                  <div className="border-l-4 border-blue-500 pl-4">
-                    <h4 className="font-semibold text-lg mb-3">
-                      Current {getPollutantName(selectedPollutant)} Data
-                    </h4>
-                    
-                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-                      <Card className="bg-blue-50 border-blue-200">
-                        <CardContent className="p-4">
-                          <div className="text-center">
-                            <div className={`text-2xl font-bold ${getPollutantValue(selectedPollutant)?.color}`}>
-                              {getPollutantValue(selectedPollutant)?.formatted}
-                            </div>
-                            <p className="text-sm text-gray-600 mt-1">
-                              {getPollutantValue(selectedPollutant)?.unit}
-                            </p>
-                            <p className="text-xs text-gray-500 mt-2">
-                              {new Date(tempoData.observation_time).toLocaleTimeString()}
-                            </p>
-                          </div>
-                        </CardContent>
-                      </Card>
-
-                      <Card>
-                        <CardContent className="p-4">
-                          <div className="text-center">
-                            <div className="text-lg font-bold text-gray-700">
-                              {(tempoData.cloud_fraction * 100).toFixed(1)}%
-                            </div>
-                            <p className="text-sm text-gray-600">Cloud Cover</p>
-                          </div>
-                        </CardContent>
-                      </Card>
-
-                      <Card>
-                        <CardContent className="p-4">
-                          <div className="text-center">
-                            <div className="text-lg font-bold text-gray-700">
-                              {tempoData.spatial_resolution_km} km
-                            </div>
-                            <p className="text-sm text-gray-600">Resolution</p>
-                          </div>
-                        </CardContent>
-                      </Card>
-
-                      <Card>
-                        <CardContent className="p-4">
-                          <div className="text-center">
-                            <div className="text-lg font-bold text-green-600">
-                              Quality {tempoData.quality_flag}
-                            </div>
-                            <p className="text-sm text-gray-600">Data Grade</p>
-                          </div>
-                        </CardContent>
-                      </Card>
-                    </div>
-                  </div>
-
-                  {/* Map Visualization Placeholder */}
-                  <div 
-                    className="relative bg-gradient-to-br from-blue-100 via-green-100 to-yellow-100 rounded-lg border-2 border-dashed border-gray-300 p-8"
-                    style={{ opacity: overlayOpacity[0] / 100 }}
-                  >
-                    <div className="text-center">
-                      <div className="w-16 h-16 mx-auto mb-4 bg-gradient-to-br from-blue-500 to-green-500 rounded-full flex items-center justify-center">
-                        <Eye className="w-8 h-8 text-white" />
-                      </div>
-                      <h3 className="text-lg font-semibold mb-2">Satellite Data Visualization</h3>
-                      <p className="text-gray-600 mb-4">
-                        Interactive map showing {getPollutantName(selectedPollutant)} concentration 
-                        from NASA TEMPO satellite
-                      </p>
-                      <div className="flex items-center justify-center gap-4 text-sm text-gray-500">
-                        <span>📍 Pixel: {tempoData.pixel_coordinates.lat.toFixed(4)}, {tempoData.pixel_coordinates.lng.toFixed(4)}</span>
-                        <span>🕒 {new Date(tempoData.observation_time).toLocaleString()}</span>
-                      </div>
-                    </div>
-                    
-                    {/* Color scale legend */}
-                    <div className="absolute bottom-4 right-4 bg-white/90 p-3 rounded-lg shadow-md">
-                      <h5 className="text-xs font-semibold mb-2">Concentration Scale</h5>
-                      <div className="flex items-center space-x-1">
-                        <div className="w-3 h-3 bg-green-400 rounded"></div>
-                        <span className="text-xs">Low</span>
-                        <div className="w-3 h-3 bg-yellow-400 rounded"></div>
-                        <span className="text-xs">Moderate</span>
-                        <div className="w-3 h-3 bg-red-400 rounded"></div>
-                        <span className="text-xs">High</span>
-                      </div>
-                    </div>
-                  </div>
-
-                  <Alert className="border-blue-200 bg-blue-50">
-                    <Info className="h-4 w-4" />
-                    <AlertDescription>
-                      <strong>TEMPO Advantage:</strong> This satellite provides hourly atmospheric 
-                      observations with 8km resolution - the highest temporal and spatial resolution 
-                      available for air quality monitoring from space over North America.
-                    </AlertDescription>
-                  </Alert>
-                </>
-              ) : (
-                <div className="text-center py-8">
-                  <Satellite className="w-16 h-16 text-gray-400 mx-auto mb-4" />
-                  <p className="text-lg font-medium text-gray-600">
-                    No TEMPO satellite data available
-                  </p>
-                  <p className="text-sm text-gray-500 mt-2">
-                    Data may not be available for this location or time
-                  </p>
-                </div>
-              )}
-            </CardContent>
-          </Card>
-        </TabsContent>
       </Tabs>
 
       {/* Data Sources Info */}
@@ -911,14 +670,7 @@ export default function AirQualityMap() {
             <Zap className="w-5 h-5" />
             Integrated Data Sources
           </h4>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 text-sm">
-            <div className="flex items-center space-x-3 p-3 bg-blue-50 rounded-lg border border-blue-200">
-              <Satellite className="w-5 h-5 text-blue-600 flex-shrink-0" />
-              <div>
-                <p className="font-medium">NASA TEMPO</p>
-                <p className="text-xs text-muted-foreground">Hourly satellite data</p>
-              </div>
-            </div>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 text-sm">
             <div className="flex items-center space-x-3 p-3 bg-green-50 rounded-lg border border-green-200">
               <Radio className="w-5 h-5 text-green-600 flex-shrink-0" />
               <div>

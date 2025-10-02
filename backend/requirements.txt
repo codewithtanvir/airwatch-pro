@@ -1,171 +1,57 @@
-# AirWatch Pro Backend Dependencies# AirWatch Backend - Python Dependencies
+# AirWatch Pro Backend Dependencies
+# Production-ready air quality monitoring backend with FastAPI and Supabase
 
-# Core FastAPI framework and ASGI server# Production-ready air quality monitoring backend with FastAPI and Supabase
-
-fastapi>=0.104.0,<0.115.0
-
-uvicorn[standard]>=0.24.0,<0.25.0# === CORE FRAMEWORK ===
-
-pydantic>=2.4.0,<3.0.0fastapi==0.104.1
-
-pydantic-settings>=2.0.0,<3.0.0uvicorn[standard]==0.24.0
-
+# === CORE FRAMEWORK ===
+fastapi==0.104.1
+uvicorn[standard]==0.24.0
 pydantic==2.5.2
+pydantic-settings==2.1.0
 
-# HTTP client for external API callspydantic-settings==2.1.0
-
-httpx>=0.25.0,<0.26.0
+# === HTTP & API CLIENTS ===
+httpx==0.25.2
+requests==2.31.0
+aiohttp==3.9.1
+urllib3==2.1.0
 
 # === DATABASE & SUPABASE ===
-
-# Environment and configurationsupabase==2.3.0
-
-python-dotenv>=1.0.0,<2.0.0postgrest==0.16.0
-
+supabase==2.3.0
+postgrest==0.16.0
 realtime==1.0.0
+gotrue==2.12.4
+storage3==0.7.0
 
-# Database and Storage (Supabase)gotrue==2.12.4
-
-supabase>=2.0.0,<3.0.0storage3==0.7.0
-
-postgrest>=0.13.0,<1.0.0
-
-storage3>=0.7.0,<1.0.0# === HTTP & API CLIENTS ===
-
-gotrue>=2.0.0,<3.0.0httpx==0.25.2
-
-requests==2.31.0
-
-# Authentication and Securityaiohttp==3.9.1
-
-python-jose[cryptography]>=3.3.0,<4.0.0urllib3==2.1.0
-
-passlib[bcrypt]>=1.7.4,<2.0.0
-
-python-multipart>=0.0.6,<1.0.0# === DATA PROCESSING ===
-
+# === DATA PROCESSING ===
 pandas==2.1.4
+numpy==1.25.2
+scipy==1.11.4
+pytz==2023.3
+python-dateutil==2.8.2
 
-# Data Processing and Analysisnumpy==1.25.2
-
-pandas>=2.1.0,<3.0.0scipy==1.11.4
-
-numpy>=1.24.0,<2.0.0pytz==2023.3
-
-scipy>=1.11.0,<2.0.0python-dateutil==2.8.2
-
-
-
-# Geospatial processing# === GEOSPATIAL & MAPPING ===
-
-geopy>=2.4.0,<3.0.0geopy==2.4.1
-
-shapely>=2.0.0,<3.0.0shapely==2.0.2
-
+# === GEOSPATIAL & MAPPING ===
+geopy==2.4.1
+shapely==2.0.2
 folium==0.15.1
-
-# Date and time handlinggeopandas==0.14.1
-
-python-dateutil>=2.8.0,<3.0.0
+geopandas==0.14.1
 
 # === ENVIRONMENTAL VARIABLES ===
+python-dotenv==1.0.0
+python-decouple==3.8
 
-# Cachingpython-dotenv==1.0.0
-
-redis>=5.0.0,<6.0.0python-decouple==3.8
-
-
-
-# Testing (development only)# === ASYNC SUPPORT ===
-
-pytest>=7.4.0,<8.0.0aiofiles==23.2.1
-
-pytest-asyncio>=0.21.0,<1.0.0asyncpg==0.29.0
-
-httpx-ws>=0.4.0,<1.0.0
+# === ASYNC SUPPORT ===
+aiofiles==23.2.1
+asyncpg==0.29.0
 
 # === AUTHENTICATION & SECURITY ===
-
-# Code quality (development only)python-jose[cryptography]==3.3.0
-
-black>=23.9.0,<24.0.0passlib[bcrypt]==1.7.4
-
-isort>=5.12.0,<6.0.0python-multipart==0.0.6
-
-flake8>=6.1.0,<7.0.0cryptography==41.0.8
-
-mypy>=1.6.0,<2.0.0
+python-jose[cryptography]==3.3.0
+passlib[bcrypt]==1.7.4
+python-multipart==0.0.6
+cryptography==41.0.8
 # === LOGGING & MONITORING ===
 loguru==0.7.2
-prometheus-client==0.19.0
-sentry-sdk[fastapi]==1.38.0
 
 # === CACHING ===
 redis==5.0.1
-cachetools==5.3.2
-
-# === TASK QUEUE ===
-celery==5.3.4
-flower==2.0.1
 
 # === TESTING ===
 pytest==7.4.3
 pytest-asyncio==0.21.1
-pytest-mock==3.12.0
-
-# === DEVELOPMENT ===
-black==23.11.0
-isort==5.12.0
-flake8==6.1.0
-mypy==1.7.1
-pre-commit==3.6.0
-
-# === NASA & SATELLITE DATA ===
-netcdf4==1.6.5
-xarray==2023.11.0
-h5py==3.10.0
-rasterio==1.3.9
-
-# === WEATHER & CLIMATE ===
-meteostat==1.6.5
-openweathermapy==0.6.6
-
-# === IMAGE & SATELLITE PROCESSING ===
-pillow==10.1.0
-matplotlib==3.8.2
-cartopy==0.22.0
-
-# === UTILITIES ===
-python-slugify==8.0.1
-python-magic==0.4.27
-click==8.1.7
-rich==13.7.0
-tqdm==4.66.1
-
-# === API DOCUMENTATION ===
-swagger-ui-bundle==0.0.9
-redoc==2.1.0
-
-# === PUSH NOTIFICATIONS ===
-pywebpush==1.14.1
-py-vapid==1.9.0
-
-# === EMAIL ===
-fastapi-mail==1.4.1
-jinja2==3.1.2
-
-# === WEBSOCKETS ===
-websockets==12.0
-python-socketio==5.10.0
-
-# === FILE HANDLING ===
-openpyxl==3.1.2
-xlsxwriter==3.1.9
-
-# === CONFIGURATION ===
-pyyaml==6.0.1
-toml==0.10.2
-
-# === PRODUCTION DEPLOYMENT ===
-gunicorn==21.2.0
-supervisor==4.2.5

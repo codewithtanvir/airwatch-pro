@@ -15,7 +15,7 @@ export interface AirQualityData {
     co: number;
   };
   timestamp: string;
-  source: 'TEMPO' | 'OpenAQ' | 'Ground Station' | 'Weather API' | 'EPA_AIRNOW' | 'WAQI' | 'FUSED_DATA' | 'GEOS';
+  source: 'OpenAQ' | 'Ground Station' | 'Weather API' | 'EPA_AIRNOW' | 'WAQI' | 'FUSED_DATA' | 'GEOS';
 }
 
 export interface ForecastData {
@@ -58,24 +58,6 @@ export interface HistoricalData {
 }
 
 // New types for enhanced data integration
-export interface TempoData {
-  timestamp: string;
-  coordinates: {
-    lat: number;
-    lng: number;
-  };
-  no2_column: number; // molecules/cm²
-  hcho_column: number; // molecules/cm²
-  quality_flag: 'good' | 'moderate' | 'poor' | 'forecast';
-  uncertainty: {
-    no2: number; // relative uncertainty (0-1)
-    hcho: number; // relative uncertainty (0-1)
-  };
-  cloud_fraction: number; // 0-1
-  viewing_angle: number; // degrees
-  source: 'TEMPO' | 'TEMPO_FORECAST';
-}
-
 export interface WeatherData {
   coordinates: {
     lat: number;

@@ -8,9 +8,8 @@ import EnhancedDashboard from '@/components/EnhancedDashboard';
 import ForecastMaps from '@/components/ForecastMaps';
 import PersonalizedAlerts from '@/components/PersonalizedAlerts';
 import AlertDistributionSystem from '@/components/AlertDistributionSystem';
-import TEMPOSatelliteData from '@/components/TEMPOSatelliteData';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
-import { MapPin, TrendingUp, Settings, Bell, Activity, Database, Wind, Waves, Satellite, AlertTriangle } from 'lucide-react';
+import { MapPin, TrendingUp, Settings, Bell, Activity, Database, Wind, Waves, AlertTriangle } from 'lucide-react';
 import { useLocation } from '@/hooks/useLocation';
 import { useState } from 'react';
 
@@ -88,7 +87,7 @@ export default function Index() {
             </h2>
           </div>
 
-          <TabsList className="grid w-full grid-cols-6 h-auto p-2 bg-white/90 backdrop-blur-md rounded-2xl shadow-xl border border-white/30 mb-8">
+          <TabsList className="grid w-full grid-cols-5 h-auto p-2 bg-white/90 backdrop-blur-md rounded-2xl shadow-xl border border-white/30 mb-8">
             <TabsTrigger 
               value="dashboard" 
               className="flex flex-col items-center justify-center gap-2 p-4 rounded-xl transition-all duration-300 hover:bg-white/90 data-[state=active]:bg-gradient-to-br data-[state=active]:from-blue-500 data-[state=active]:to-green-500 data-[state=active]:text-white data-[state=active]:shadow-lg data-[state=active]:scale-105"
@@ -102,13 +101,6 @@ export default function Index() {
             >
               <MapPin className="w-5 h-5" />
               <span className="text-sm font-medium">Map</span>
-            </TabsTrigger>
-            <TabsTrigger 
-              value="satellite" 
-              className="flex flex-col items-center justify-center gap-2 p-4 rounded-xl transition-all duration-300 hover:bg-white/90 data-[state=active]:bg-gradient-to-br data-[state=active]:from-purple-500 data-[state=active]:to-blue-500 data-[state=active]:text-white data-[state=active]:shadow-lg data-[state=active]:scale-105"
-            >
-              <Satellite className="w-5 h-5" />
-              <span className="text-sm font-medium">TEMPO</span>
             </TabsTrigger>
             <TabsTrigger 
               value="alerts" 
@@ -148,12 +140,6 @@ export default function Index() {
             </div>
           </TabsContent>
 
-          <TabsContent value="satellite" className="mt-0 focus-visible:outline-none">
-            <div className="animate-in fade-in-50 duration-300">
-              <TEMPOSatelliteData />
-            </div>
-          </TabsContent>
-
           <TabsContent value="alerts" className="mt-0 focus-visible:outline-none">
             <div className="animate-in fade-in-50 duration-300">
               <PersonalizedAlerts />
@@ -190,7 +176,7 @@ export default function Index() {
           <div className="bg-white/95 backdrop-blur-md border-t border-white/20 shadow-2xl">
             <div className="px-2 py-2">
               <div className="overflow-x-auto">
-                <TabsList className="grid w-max grid-cols-6 h-auto p-1 bg-transparent gap-1 min-w-full">
+                <TabsList className="grid w-max grid-cols-5 h-auto p-1 bg-transparent gap-1 min-w-full">
                   <TabsTrigger 
                     value="dashboard" 
                     className="flex flex-col items-center justify-center gap-1 p-3 rounded-xl transition-all duration-300 hover:bg-white/50 data-[state=active]:bg-gradient-to-br data-[state=active]:from-blue-500 data-[state=active]:to-green-500 data-[state=active]:text-white data-[state=active]:shadow-lg min-w-[70px]"
@@ -204,13 +190,6 @@ export default function Index() {
                   >
                     <MapPin className="w-4 h-4" />
                     <span className="text-xs font-medium">Map</span>
-                  </TabsTrigger>
-                  <TabsTrigger 
-                    value="satellite" 
-                    className="flex flex-col items-center justify-center gap-1 p-3 rounded-xl transition-all duration-300 hover:bg-white/50 data-[state=active]:bg-gradient-to-br data-[state=active]:from-purple-500 data-[state=active]:to-blue-500 data-[state=active]:text-white data-[state=active]:shadow-lg min-w-[70px]"
-                  >
-                    <Satellite className="w-4 h-4" />
-                    <span className="text-xs font-medium">TEMPO</span>
                   </TabsTrigger>
                   <TabsTrigger 
                     value="alerts" 

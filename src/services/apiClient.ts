@@ -265,33 +265,7 @@ class ApiClient {
     }
   }
 
-  // === SATELLITE DATA ENDPOINTS ===
-  async getTempoSatelliteData(latitude: number, longitude: number): Promise<{ success: boolean; data: Record<string, unknown> }> {
-    try {
-      const params = new URLSearchParams({
-        latitude: latitude.toString(),
-        longitude: longitude.toString(),
-      });
 
-      const response = await this.client.get(`/satellite/tempo?${params}`);
-      return response.data as { success: boolean; data: Record<string, unknown> };
-    } catch (error: unknown) {
-      console.error('Failed to get TEMPO satellite data:', error);
-      const errorMessage = (error as { response?: { data?: { detail?: string } } }).response?.data?.detail || 'Failed to get satellite data';
-      throw new Error(errorMessage);
-    }
-  }
-
-  async getTempoCoverage(): Promise<{ success: boolean; coverage: Record<string, unknown>; parameters: Record<string, unknown> }> {
-    try {
-      const response = await this.client.get('/satellite/tempo/coverage');
-      return response.data as { success: boolean; coverage: Record<string, unknown>; parameters: Record<string, unknown> };
-    } catch (error: unknown) {
-      console.error('Failed to get TEMPO coverage:', error);
-      const errorMessage = (error as { response?: { data?: { detail?: string } } }).response?.data?.detail || 'Failed to get TEMPO coverage';
-      throw new Error(errorMessage);
-    }
-  }
 
   // === SERVICE STATUS ENDPOINTS ===
   async getServicesStatus(): Promise<{ success: boolean; services: Record<string, ServiceStatus>; timestamp: string }> {
