@@ -8,6 +8,7 @@ import EnhancedDashboard from '@/components/EnhancedDashboard';
 import ForecastMaps from '@/components/ForecastMaps';
 import PersonalizedAlerts from '@/components/PersonalizedAlerts';
 import AlertDistributionSystem from '@/components/AlertDistributionSystem';
+import DataAnalysisDashboard from '@/components/DataAnalysisDashboard';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { MapPin, TrendingUp, Settings, Bell, Activity, Database, Wind, Waves, AlertTriangle } from 'lucide-react';
 import { useLocation } from '@/hooks/useLocation';
@@ -113,8 +114,8 @@ export default function Index() {
               value="trends" 
               className="flex flex-col items-center justify-center gap-2 p-4 rounded-xl transition-all duration-300 hover:bg-white/90 data-[state=active]:bg-gradient-to-br data-[state=active]:from-blue-500 data-[state=active]:to-green-500 data-[state=active]:text-white data-[state=active]:shadow-lg data-[state=active]:scale-105"
             >
-              <TrendingUp className="w-5 h-5" />
-              <span className="text-sm font-medium">Trends</span>
+              <Database className="w-5 h-5" />
+              <span className="text-sm font-medium">Data Analysis</span>
             </TabsTrigger>
             <TabsTrigger 
               value="settings" 
@@ -148,7 +149,7 @@ export default function Index() {
 
           <TabsContent value="trends" className="mt-0 focus-visible:outline-none">
             <div className="animate-in fade-in-50 duration-300">
-              <HistoricalTrends />
+              <DataAnalysisDashboard />
             </div>
           </TabsContent>
 
@@ -202,8 +203,8 @@ export default function Index() {
                     value="trends" 
                     className="flex flex-col items-center justify-center gap-1 p-3 rounded-xl transition-all duration-300 hover:bg-white/50 data-[state=active]:bg-gradient-to-br data-[state=active]:from-blue-500 data-[state=active]:to-green-500 data-[state=active]:text-white data-[state=active]:shadow-lg min-w-[70px]"
                   >
-                    <TrendingUp className="w-4 h-4" />
-                    <span className="text-xs font-medium">Data</span>
+                    <Database className="w-4 h-4" />
+                    <span className="text-xs font-medium">Analysis</span>
                   </TabsTrigger>
                   <TabsTrigger 
                     value="settings" 
