@@ -318,7 +318,7 @@ AirWatch Pro is **100% open source** to maximize global impact:
 **Team Contact:**
 - 📧 **Email**: team@airwatch-pro.com
 - 🐙 **GitHub**: [github.com/your-username/airwatch-pro](https://github.com/your-username/airwatch-pro)
-- 🌐 **Live Demo**: [airwatch-pro.vercel.app](https://airwatch-pro.vercel.app)
+- 🌐 **Live Demo**: [airwatch-pro.vercel.app](https://airwatchprov1.vercel.app/)
 - 📱 **Mobile Demo**: Scan QR code to install PWA
 
 **For Judges:**
