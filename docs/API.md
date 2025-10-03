@@ -4,7 +4,7 @@
 
 AirWatch Pro provides a RESTful API for accessing real-time air quality data integrated from NASA TEMPO satellite observations, ground-based monitoring stations, and weather data. All endpoints return JSON responses and follow standard HTTP status codes.
 
-**Base URL:** `https://airwatchprov1-fc9iucydc-tanvirrahman38s-projects.vercel.app/api`
+**Base URL:** `https://airwatchpro.vercel.app/api`
 
 ## 🔐 Authentication
 
@@ -12,7 +12,7 @@ Currently, the API is publicly accessible for demonstration purposes. Future ver
 
 ```javascript
 // No authentication required for current version
-fetch('https://airwatchprov1-fc9iucydc-tanvirrahman38s-projects.vercel.app/api/health')
+fetch('https://airwatchpro.vercel.app/api/health')
 ```
 
 ## 📡 Endpoints
@@ -61,7 +61,7 @@ Retrieves comprehensive air quality data for a specific location, including curr
 
 #### Example Request
 ```bash
-curl "https://airwatchprov1-fc9iucydc-tanvirrahman38s-projects.vercel.app/api/air-quality?lat=40.7128&lon=-74.0060&forecast=true"
+curl "https://airwatchpro.vercel.app/api/air-quality?lat=40.7128&lon=-74.0060&forecast=true"
 ```
 
 #### Success Response (200 OK)
@@ -189,7 +189,7 @@ Retrieves historical air quality data for trend analysis and comparison.
 
 #### Example Request
 ```bash
-curl "https://airwatchprov1-fc9iucydc-tanvirrahman38s-projects.vercel.app/api/air-quality/historical?lat=40.7128&lon=-74.0060&start_date=2025-01-01T00:00:00Z&end_date=2025-01-07T23:59:59Z"
+curl "https://airwatchpro.vercel.app/api/air-quality/historical?lat=40.7128&lon=-74.0060&start_date=2025-01-01T00:00:00Z&end_date=2025-01-07T23:59:59Z"
 ```
 
 #### Success Response (200 OK)
@@ -355,7 +355,7 @@ X-RateLimit-Reset: 1641654321
 // Example using fetch API
 const getAirQuality = async (lat, lon) => {
   const response = await fetch(
-    `https://airwatchprov1-fc9iucydc-tanvirrahman38s-projects.vercel.app/api/air-quality?lat=${lat}&lon=${lon}`
+    `https://airwatchpro.vercel.app/api/air-quality?lat=${lat}&lon=${lon}`
   );
   return await response.json();
 };
@@ -370,7 +370,7 @@ console.log(`Current AQI: ${data.current.aqi}`);
 import requests
 
 def get_air_quality(lat, lon):
-    url = f"https://airwatchprov1-fc9iucydc-tanvirrahman38s-projects.vercel.app/api/air-quality"
+    url = f"https://airwatchpro.vercel.app/api/air-quality"
     params = {"lat": lat, "lon": lon}
     response = requests.get(url, params=params)
     return response.json()
