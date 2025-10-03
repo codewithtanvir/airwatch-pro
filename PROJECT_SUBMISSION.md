@@ -15,7 +15,7 @@ AirWatch Pro transforms NASA's revolutionary TEMPO satellite data into a compreh
 **Key Innovation:** First application to comprehensively integrate NASA TEMPO hourly satellite data with machine learning forecasting for proactive public health protection.
 
 **Links:**
-- 🚀 **Live Demo:** [https://airwatchprov1-fc9iucydc-tanvirrahman38s-projects.vercel.app](https://airwatchprov1-fc9iucydc-tanvirrahman38s-projects.vercel.app)
+- 🚀 **Live Demo**: https://airwatchpro.vercel.app
 - 📽️ **240 Seconds Video:** [To be added - YouTube link]
 - 💻 **GitHub Repository:** [https://github.com/codewithtanvir/airwatch-pro](https://github.com/codewithtanvir/airwatch-pro)
 
@@ -38,7 +38,7 @@ Our 30-second demonstration showcases:
 - **Architecture Overview:** [docs/ARCHITECTURE.md](./docs/ARCHITECTURE.md)
 
 ### **Live Resources:**
-- **Production Application:** [Vercel Deployment](https://airwatchprov1-fc9iucydc-tanvirrahman38s-projects.vercel.app)
+- **Production Application:** [Vercel Deployment](https://airwatchpro.vercel.app)
 - **API Endpoints:** 
   - Health Check: `/api/health`
   - Air Quality Data: `/api/air-quality?lat=40.7128&lon=-74.0060`
