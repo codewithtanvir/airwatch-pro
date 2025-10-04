@@ -158,3 +158,8 @@ hackathon_docs/
 
 # Temporary and cache files
 node_modules
+
+# Markdown files (except root README.md)
+*.md
+!README.md
+!*/README.md
