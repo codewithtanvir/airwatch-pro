@@ -73,7 +73,7 @@ export interface WeatherData {
   uvIndex: number; // 0-11
   visibility: number; // km
   boundary_layer_height: number; // meters
-  source: 'GEOS' | 'GEOS_FORECAST';
+  source: 'GEOS' | 'GEOS_FORECAST' | 'OpenWeather' | 'NOAA';
 }
 
 export interface PersonalizedAlert {

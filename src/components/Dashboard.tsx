@@ -10,7 +10,7 @@ import { useLocation } from '@/hooks/useLocation';
 import LocationSearch from '@/components/LocationSearch';
 import { useState, useEffect } from 'react';
 import { AirQualityData, ForecastData, WeatherData } from '@/types/airQuality';
-// import { useTEMPOData } from '@/hooks/useTEMPOData';
+import { useTEMPOData } from '@/hooks/useTEMPOData';
 
 export default function Dashboard() {
   const { location } = useLocation();
@@ -22,14 +22,16 @@ export default function Dashboard() {
   const [error, setError] = useState<string | null>(null);
   const [showComparison, setShowComparison] = useState(false);
   
-  // Mock TEMPO data since hook doesn't exist
-  const tempoData = null;
-  const tempoLoading = false;
-  const tempoError = null;
-  const tempoLastUpdate = null;
-  const tempoNextUpdate = null;
-  const tempoIsStale = false;
-  const refreshTEMPOData = () => {};
+  // Real TEMPO data integration
+  const { 
+    tempoData, 
+    loading: tempoLoading, 
+    error: tempoError, 
+    lastUpdate: tempoLastUpdate, 
+    nextUpdate: tempoNextUpdate, 
+    isStale: tempoIsStale, 
+    refreshData: refreshTEMPOData 
+  } = useTEMPOData(location.coordinates.lat, location.coordinates.lng);
 
   // Fetch real data from backend API
   useEffect(() => {
